@@ -44,6 +44,8 @@
    - **Измерения (Dimension Tables)**: Таблицы `stores`, `promos`, `coupons`, `promo_types` загружаются из CSV-файлов с помощью функции `f_load_full` через коннектор `gpfdist`.
    - **Факты (Fact Tables)**: Таблицы `bills_head`, `bills_item`, `traffic` загружаются из PostgreSQL с использованием функций `f_load_delta_partition` и `f_traffic_load_delta_partition` через PXF-коннектор.
    - Данные партиционируются по дате (интервал 1 месяц) и распределяются по ключам (например, `billnum` для `bills_head` и `bills_item`, `coupon_id` для `coupons`).
+  
+![ERD diagram of the Greenplum database](ERD.png)
 
 2. **Трансформация данных**:
    - Функция `f_load_plant_mart` создает витрину `mart_plants_default` в Greenplum, агрегируя данные из таблиц фактов и измерений за заданный период (например, с 1 января 2021 по 28 февраля 2021).
