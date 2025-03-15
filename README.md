@@ -72,6 +72,8 @@
      - Загрузка таблиц измерений (`full_insert`).
      - Загрузка таблиц фактов (`delta_partition_insert`).
      - Создание витрины (`load_gp_mart`).
+    
+![Pipeline overview](Dataflow diagram.png)
 
 ### Схема базы данных
 - **Таблицы фактов**:
