@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1320" height="430" viewBox="0 0 1320 430" role="img" aria-labelledby="diagram-title diagram-description">
+  <title id="diagram-title">Поток данных платформы аналитики продаж</title>
+  <desc id="diagram-description">Данные из CSV проходят оркестрацию, загрузку в PostgreSQL или Greenplum, построение витрины, проверки качества и публикацию в ClickHouse.</desc>
+  <defs>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="150%">
+      <feDropShadow dx="0" dy="4" stdDeviation="5" flood-color="#0F172A" flood-opacity="0.08"/>
+    </filter>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#64748B"/>
+    </marker>
+    <style>
+      .canvas { fill: #FFFFFF; stroke: #E2E8F0; stroke-width: 2; }
+      .card { stroke-width: 2; filter: url(#shadow); }
+      .step { font: 600 15px Inter, Arial, sans-serif; fill: #FFFFFF; text-anchor: middle; }
+      .eyebrow { font: 600 14px Inter, Arial, sans-serif; letter-spacing: 1.2px; fill: #64748B; }
+      .title { font: 600 21px Inter, Arial, sans-serif; fill: #0F172A; }
+      .detail { font: 400 15px Inter, Arial, sans-serif; fill: #475569; }
+      .arrow { fill: none; stroke: #64748B; stroke-width: 2.5; marker-end: url(#arrow); }
+      .note-title { font: 600 16px Inter, Arial, sans-serif; fill: #9A3412; }
+      .note { font: 400 14px Inter, Arial, sans-serif; fill: #7C2D12; }
+    </style>
+  </defs>
+
+  <rect x="1" y="1" width="1318" height="428" rx="28" class="canvas"/>
+
+  <path d="M260 183 L290 183" class="arrow"/>
+  <path d="M510 183 L540 183" class="arrow"/>
+  <path d="M760 183 L790 183" class="arrow"/>
+  <path d="M1010 183 L1040 183" class="arrow"/>
+
+  <g>
+    <rect x="40" y="105" width="220" height="156" rx="16" fill="#EFF6FF" stroke="#93C5FD" class="card"/>
+    <circle cx="68" cy="137" r="20" fill="#2563EB"/>
+    <text x="68" y="142" class="step">1</text>
+    <text x="96" y="142" class="eyebrow">ДАННЫЕ</text>
+    <text x="72" y="187" class="title">CSV-выгрузки</text>
+    <text x="72" y="219" class="detail">Чеки, трафик</text>
+    <text x="72" y="241" class="detail">и промоакции</text>
+  </g>
+
+  <g>
+    <rect x="290" y="105" width="220" height="156" rx="16" fill="#FFFFFF" stroke="#CBD5E1" class="card"/>
+    <circle cx="318" cy="137" r="20" fill="#64748B"/>
+    <text x="318" y="142" class="step">2</text>
+    <text x="346" y="142" class="eyebrow">ЗАПУСК</text>
+    <text x="322" y="187" class="title">Оркестрация</text>
+    <text x="322" y="219" class="detail">Airflow DAG</text>
+    <text x="322" y="241" class="detail">или Compose</text>
+  </g>
+
+  <g>
+    <rect x="540" y="105" width="220" height="156" rx="16" fill="#F5F3FF" stroke="#C4B5FD" class="card"/>
+    <circle cx="568" cy="137" r="20" fill="#7C3AED"/>
+    <text x="568" y="142" class="step">3</text>
+    <text x="596" y="142" class="eyebrow">ХРАНИЛИЩЕ</text>
+    <text x="572" y="187" class="title">PostgreSQL</text>
+    <text x="572" y="219" class="detail">Локальный запуск</text>
+    <text x="572" y="241" class="detail">Greenplum MPP</text>
+  </g>
+
+  <g>
+    <rect x="790" y="105" width="220" height="156" rx="16" fill="#FFF7ED" stroke="#FDBA74" class="card"/>
+    <circle cx="818" cy="137" r="20" fill="#EA580C"/>
+    <text x="818" y="142" class="step">4</text>
+    <text x="846" y="142" class="eyebrow">ВИТРИНА</text>
+    <text x="822" y="187" class="title">Расчёт и DQ</text>
+    <text x="822" y="219" class="detail">store_performance</text>
+    <text x="822" y="241" class="detail">5 групп проверок</text>
+  </g>
+
+  <g>
+    <rect x="1040" y="105" width="240" height="156" rx="16" fill="#ECFDF5" stroke="#6EE7B7" class="card"/>
+    <circle cx="1068" cy="137" r="20" fill="#059669"/>
+    <text x="1068" y="142" class="step">5</text>
+    <text x="1096" y="142" class="eyebrow">ПУБЛИКАЦИЯ</text>
+    <text x="1072" y="187" class="title">ClickHouse</text>
+    <text x="1072" y="219" class="detail">Готовая витрина</text>
+    <text x="1072" y="241" class="detail">для BI и Superset</text>
+  </g>
+
+  <path d="M900 261 L900 302" fill="none" stroke="#EA580C" stroke-width="2"/>
+  <g>
+    <rect x="726" y="302" width="348" height="76" rx="14" fill="#FFF7ED" stroke="#FDBA74" stroke-width="2"/>
+    <text x="750" y="331" class="note-title">Публикация только после проверок</text>
+    <text x="750" y="357" class="note">Ошибка качества останавливает пайплайн.</text>
+  </g>
+</svg>
